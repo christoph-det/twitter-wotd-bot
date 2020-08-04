@@ -67,7 +67,7 @@ export default class DbHelper {
         };
         this.prevwotdTable.insert(newWOTD);
         this.hashtagstatTable.drop();
-        return resolve(name);
+        return resolve(original_name);
       });
     });
   }

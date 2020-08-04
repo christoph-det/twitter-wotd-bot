@@ -22,10 +22,16 @@ router.post("/", limiter, (req: Request, res: Response) => {
   } else {
     const twitterHelper = new TwitterHelper();
     const dbhelper = new DbHelper();
-    dbhelper.getWOTD().then((wotd: string) => {
-      twitterHelper.postTweet(wotd);
-    });
-    res.json({ message: "Posted to Twitter!" });
+    dbhelper
+      .getWOTD()
+      .then((wotd: string) => {
+        twitterHelper.postTweet(wotd);
+        res.json({ message: "Posted to Twitter!" });
+      })
+      .catch((err: string) => {
+        res.status(500);
+        res.json({ message: err });
+      });
   }
 });
 

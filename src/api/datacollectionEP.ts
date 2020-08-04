@@ -12,7 +12,7 @@ const router = Router();
 
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 60 minutes
-  max: 5, // limit each IP to 3 requests per windowMs
+  max: 5, // limit each IP to 5 requests per windowMs
 });
 
 router.post("/", limiter, (req: Request, res: Response) => {

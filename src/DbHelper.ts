@@ -39,11 +39,14 @@ export default class DbHelper {
   }
 
   public getWOTD(): Promise<string> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.hashtagstatTable.find({}).then(async (docs: any) => {
-        let maxIdx = 0;
+        let maxIdx = -1;
         let wasalreadyWotd = false;
+        if (docs.length == 0)
+          return reject("Hashtags are empty. Collect data first!");
         do {
+          maxIdx += 1;
           for (let i = maxIdx; i < docs.length; ++i) {
             if (docs[i].counter > docs[maxIdx].counter) {
               maxIdx = i;
@@ -52,7 +55,6 @@ export default class DbHelper {
           wasalreadyWotd = await this.prevwotdTable.findOne({
             name: docs[maxIdx].name,
           });
-          maxIdx += 1;
         } while (wasalreadyWotd);
         const date = new Date();
         const dateString = date.toISOString().slice(0, 10);

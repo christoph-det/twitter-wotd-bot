@@ -1,4 +1,5 @@
 import express from "express";
+import DbHelper from "./DbHelper";
 
 /**
  * Application setup.
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.set("trust proxy", 1);
 // static serve:
 // app.use(express.static('./public'));
 

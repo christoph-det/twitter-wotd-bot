@@ -13,7 +13,7 @@ const limiter = rateLimit({
   max: 3, // limit each IP to 3 requests per windowMs
 });
 
-router.get("/", limiter, (req: Request, res: Response) => {
+router.post("/", limiter, (req: Request, res: Response) => {
   console.log("posting wotd to twitter...");
   if (req.body.auth !== process.env.BOTAPI_AUTH_TOKEN) {
     console.log("Unauthorised access to posting EP.");

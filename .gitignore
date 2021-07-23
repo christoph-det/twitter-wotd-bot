@@ -77,3 +77,5 @@ typings/
 
 #Compiled JS
 dist/
+
+.vscode/
